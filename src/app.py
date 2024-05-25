@@ -2,11 +2,12 @@
 
 import aiohttp
 # from fastapi_cachette import Cachette
-from fastapi import FastAPI #, Depends
+from fastapi import FastAPI, Response #, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
+from fastapi.staticfiles import StaticFiles
 from pybadges import badge
 # from pydantic import BaseModel
 
@@ -45,7 +46,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-templates = Jinja2Templates(directory="static")
+app.mount("/", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
 """
 @Cachette.load_config
@@ -68,7 +70,8 @@ async def index(request: Request):
     return templates.TemplateResponse("index.html", context)
 
 @app.get("/followers")
-async def followers(username: str, host: str=None, software: str = "activitypub"):
+async def followers(response: Response, username: str, host: str=None, software: str = "activitypub"):
+    response.headers["X-Robots-Tag"] = "noimageai"
     head = {
         "Accept": "application/activity+json",
         "User-Agent": "FediBadges (https://github.com/sonyakun/fedibadges)",
@@ -136,7 +139,8 @@ async def followers(username: str, host: str=None, software: str = "activitypub"
     return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
 
 @app.get("/posts")
-async def posts(username: str=None, host: str=None, software: str = "activitypub"):
+async def posts(response: Response, username: str=None, host: str=None, software: str = "activitypub"):
+    response.headers["X-Robots-Tag"] = "noimageai"
     if host is None:
         b = badge(left_text="Followers", right_text="host is Required", right_color="#FF4949")
         return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")

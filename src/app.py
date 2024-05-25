@@ -6,6 +6,7 @@ from fastapi import FastAPI #, Depends
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.requests import Request
 from pybadges import badge
 # from pydantic import BaseModel
 
@@ -60,8 +61,11 @@ def get_cachette_config():
 """
 
 @app.get("/", response_class=HTMLResponse)
-async def index():
-    return templates.TemplateResponse("index.html")
+async def index(request: Request):
+    context = {
+        "request": request
+    }
+    return templates.TemplateResponse("index.html", context)
 
 @app.get("/followers")
 async def followers(username: str, host: str=None, software: str = "activitypub"):

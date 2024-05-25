@@ -7,7 +7,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.requests import Request
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import PlainTextResponse
+
 from pybadges import badge
 # from pydantic import BaseModel
 
@@ -46,7 +47,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.mount("/", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 """
@@ -62,12 +62,19 @@ def get_cachette_config():
     ]
 """
 
+with open("./static/robots.txt", "r") as f:
+    robots = f.read()
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     context = {
         "request": request
     }
     return templates.TemplateResponse("index.html", context)
+
+@app.get("/robots.txt", response_class=PlainTextResponse)
+async def robots_txt(request: Request):
+    return robots
 
 @app.get("/followers")
 async def followers(response: Response, username: str, host: str=None, software: str = "activitypub"):

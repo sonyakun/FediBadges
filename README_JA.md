@@ -5,6 +5,9 @@
 ActivityPubを採用したマイクロブログ向けのバッジ生成用ツールです。
 
 ## 使い方
+> [!WARNING]
+> [fedibadges.sonyakun.com](https://fedibadges.sonyakun.com)はVercelのHobby Planでホストされています。大量に生成する場合などは[セルフホスト](#セルフホスト)を検討してください。
+
 [Web上](https://fedibadges.sonyakun.com)で作成が可能です。
 
 ### Webで作成

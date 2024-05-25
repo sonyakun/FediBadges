@@ -8,6 +8,9 @@ Tools for badge generation for ActivityPub implemented microblogs.
 It can be created on the [Web](https://fedibadges.sonyakun.com).
 
 ### Make on Web
+> [!WARNING]
+> [fedibadges.sonyakun.com](https://fedibadges.sonyakun.com) is hosted on Vercel's Hobby Plan. Please consider [self-hosting](#self-hosting) when generating a large number of badges, for example.
+
 Enter an account name such as Misskey in the username field. (Example: `cocoa_vrc`)
 > [!WARNING]
 > The account name is the string of characters following @, excluding the domain.
@@ -21,7 +24,7 @@ The following three icon types are available:
 
 Once everything is entered, click Generate to generate the image. The URL and copy button will appear below the generated image.
 
-## Selfhost
+## self-host
 > [!IMPORTANT]
 > Due to a [known issue](https://github.com/vercel/vercel/issues/11545), the Node.js version must be set to 18 and the Python version to 3.9 when used with Vercel.
 

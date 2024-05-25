@@ -125,7 +125,7 @@ async def followers(response: Response, username: str, host: str=None, software:
         async with session.get(url + "/followers", headers=head) as resp:
             if resp.status == 200:
                 resp = await resp.json()
-                follower_count = f"{resp["totalItems"]:,}"
+                follower_count = f"{resp['totalItems']:,}"
             elif resp.status == 403:
                 follower_count = "unknown"
             else:
@@ -201,7 +201,7 @@ async def posts(response: Response, username: str=None, host: str=None, software
         async with session.get(url + "/outbox", headers=head) as resp:
             if resp.status == 200:
                 resp = await resp.json()
-                post_count = f"{resp["totalItems"]:,}"
+                post_count = f"{resp['totalItems']:,}"
             elif resp.status == 403:
                 post_count = "unknown"
             else:

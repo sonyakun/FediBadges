@@ -30,6 +30,8 @@ icon typeは以下の三種類が利用できます。
 Vercelで動作確認済みです。
 
 ## 謝辞
+* GitHub Corners by [@tholman](https://github.com/tholman)
+
 * Misskey logo by [Misskey](https://misskey-hub.net/ja/brand-assets/)
 * Mastodon lobo by [Mastodon](https://joinmastodon.org/ja/branding)
 * ActivityPub logo by [WikiMedia Commons](https://commons.wikimedia.org/wiki/File:ActivityPub-logo-symbol.svg)

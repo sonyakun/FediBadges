@@ -30,6 +30,8 @@ Once everything is entered, click Generate to generate the image. The URL and co
 tested on Vercel.
 
 ## Thanks
+* GitHub Corners by [@tholman](https://github.com/tholman)
+
 * Misskey logo by [Misskey](https://misskey-hub.net/brand-assets/)
 * Mastodon lobo by [Mastodon](https://joinmastodon.org/branding)
 * ActivityPub logo by [WikiMedia Commons](https://commons.wikimedia.org/wiki/File:ActivityPub-logo-symbol.svg)

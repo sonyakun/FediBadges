@@ -32,6 +32,13 @@ icon typeは以下の三種類が利用できます。
 
 Vercelで動作確認済みです。
 
+### 構築方法
+pipenvをインストールします。
+
+その後、(3.12を利用する場合は)Pipfileのpython_versionを3.12に変更します。
+
+`pipenv install`をfedbadgesのディレクトリで実行し、完了後に`pipenv run serve`を実行することで起動できます。
+
 ## 謝辞
 * GitHub Corners by [@tholman](https://github.com/tholman)
 

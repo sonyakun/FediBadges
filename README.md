@@ -24,13 +24,20 @@ The following three icon types are available:
 
 Once everything is entered, click Generate to generate the image. The URL and copy button will appear below the generated image.
 
-## self-host
+## self-hosting
 > [!IMPORTANT]
 > Due to a [known issue](https://github.com/vercel/vercel/issues/11545), the Node.js version must be set to 18 and the Python version to 3.9 when used with Vercel.
 
 [![Deploy With Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsonyakun%2Ffedibadges)
 
 tested on Vercel.
+
+### How to build
+Install pipenv.
+
+After that, change the python_version in the Pipfile to 3.12 (if you are using 3.12).
+
+Run `pipenv install` in the fedbadges directory and run `pipenv run serve` after completion to start it.
 
 ## Thanks
 * GitHub Corners by [@tholman](https://github.com/tholman)

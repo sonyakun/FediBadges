@@ -183,5 +183,3 @@ async def posts(username: str, host: str, software: str = "activitypub"):
         logo=logo["b64"],
     )
     return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
-
-uvicorn.run(app, port=8080)

@@ -2,17 +2,14 @@
 
 import aiohttp
 # from fastapi_cachette import Cachette
-import uvicorn
 from fastapi import FastAPI #, Depends
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pybadges import badge
-import uvicorn
 # from pydantic import BaseModel
 
 from .b64 import software_logos
-
-
 
 """
 ENV = os.environ
@@ -34,7 +31,7 @@ class Payload(BaseModel):
 app = FastAPI(
     title="FedBadges",
     version="0.1.0",
-    description="Mastodon/Misskey Badge Generator",
+    description="Badge Generator for ActivityPub Servers.",
     openapi_url=None,
     redoc_url=None,
 )
@@ -47,6 +44,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+templates = Jinja2Templates(directory="static")
 
 """
 @Cachette.load_config
@@ -61,12 +59,22 @@ def get_cachette_config():
     ]
 """
 
+@app.get("/", response_class=HTMLResponse)
+async def index():
+    return templates.TemplateResponse("index.html")
+
 @app.get("/followers")
-async def followers(username: str, host: str, software: str = "activitypub"):
+async def followers(username: str, host: str=None, software: str = "activitypub"):
     head = {
         "Accept": "application/activity+json",
         "User-Agent": "FediBadges (https://github.com/sonyakun/fedibadges)",
     }
+    if host is None:
+        b = badge(left_text="Followers", right_text="host is Required", right_color="#FF4949")
+        return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
+    elif username is None:
+        b = badge(left_text="Followers", right_text="username is Required", right_color="#FF4949")
+        return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
     if software_logos.get(software.lower()) is None:
         logo = software_logos.get("activitypub")
     else:
@@ -124,7 +132,13 @@ async def followers(username: str, host: str, software: str = "activitypub"):
     return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
 
 @app.get("/posts")
-async def posts(username: str, host: str, software: str = "activitypub"):
+async def posts(username: str=None, host: str=None, software: str = "activitypub"):
+    if host is None:
+        b = badge(left_text="Followers", right_text="host is Required", right_color="#FF4949")
+        return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
+    elif username is None:
+        b = badge(left_text="Followers", right_text="username is Required", right_color="#FF4949")
+        return HTMLResponse(content=b, status_code=200, media_type="image/svg+xml")
     if software.lower() == "misskey":
         text = "Notes"
     elif software.lower() == "mastodon":

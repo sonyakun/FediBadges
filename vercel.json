@@ -1,7 +1,8 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "app.py",
+      "src": "src/app.py",
       "use": "@vercel/python"
     }
   ],
@@ -13,7 +14,10 @@
         "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
       },
       "src": "/(.*)",
-      "dest": "app.py"
+      "dest": "src/app.py"
     }
-  ]
+  ],
+  "env": {
+    "APP_MODULE": "app:app"
+  }
 }

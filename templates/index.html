@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FediBadges</title>
     <!-- OGP MetaTag -->
-    <head prefix="og: https://ogp.me/ns#">
+    <head prefix="og: ogp.me/ns#">
     <meta property="og:title" content="FediBadges" />
     <meta property="og:site_name" content="FediBadges" />
     <meta property="og:description" content="Badge Generator for ActivityPub Servers" />
-    <meta property="og:url" content="https://fedibadges.sonyakun.com/" />
+    <meta property="og:url" content="{{ request.base_url }}" />
     <meta property="og:type" content="website" />
     <!-- OGP MetaTag -->
     <meta name="robots" content="noai, noimageai">
@@ -26,8 +26,8 @@
             let username = document.getElementById('username');
             let host = document.getElementById('host');
             let software = document.getElementById('software');
-            const followers_src_new = `https://fedibadges.sonyakun.com/followers?username=${username.value}&host=${host.value}&software=${software.value}`;
-            const posts_src_new = `https://fedibadges.sonyakun.com/posts?username=${username.value}&host=${host.value}&software=${software.value}`;
+            const followers_src_new = `{{ request.base_url }}followers?username=${username.value}&host=${host.value}&software=${software.value}`;
+            const posts_src_new = `{{ request.base_url }}posts?username=${username.value}&host=${host.value}&software=${software.value}`;
             if (followers_src_new == followers.src) {}else {
                 followers.src = followers_src_new;
             }
@@ -40,39 +40,56 @@
         .github-corner svg {
             clip-path: polygon(0 0, 100% 0, 100% 100%)
         }
+
+        footer { 
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .container {
+            margin:  0 auto;
+        }
     </style>
   </head>
   <body>
-    <datalist id="dl-host">
-        <option value="fedibird.com"></option>
-        <option value="misskey.io"></option>
-    </datalist>
-    <a href="https://github.com/sonyakun/fedibadges" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
-    <h1>FediBadges</h1>
-    <h5>Badge Generator for ActivityPub Servers</h5>
-    <br>
-    <p>
-        <input type="text" placeholder="username" id="username" autocomplete="off" required />@<input type="text" placeholder="host" id="host" list="dl-host" autocomplete="off" required />
-        <p>icon type 
-            <select name="software" id="software">
-                <option value="activitypub">ActivityPub</option>
-                <option value="misskey">Misskey</option>
-                <option value="mastodon">Mastodon</option>
-            </select>
+    <div class="container">
+        <datalist id="dl-host">
+            <option value="fedibird.com"></option>
+            <option value="misskey.io"></option>
+        </datalist>
+        <a href="{{ github_url }}" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+        <h1>FediBadges</h1>
+        <h5>Badge Generator for ActivityPub Servers</h5>
+        <br>
+        <p>
+            <input type="text" placeholder="username" id="username" autocomplete="off" required />@<input type="text" placeholder="host" id="host" list="dl-host" autocomplete="off" required />
+            <p>icon type 
+                <select name="software" id="software">
+                    <option value="activitypub">ActivityPub</option>
+                    <option value="misskey">Misskey</option>
+                    <option value="mastodon">Mastodon</option>
+                </select>
+            </p>
+            <button type="button" class="btn btn-outline-primary" onclick="set_icon()">Generate</button>
         </p>
-        <button type="button" class="btn btn-outline-primary" onclick="set_icon()">Generate</button>
-    </p>
-    <h2>Followers Counter</h2>
-    <img src="https://fedibadges.sonyakun.com/followers?username=cocoa_vrc&host=misskey.io&software=misskey" id="followers">
-    <br>
-    <input id="followers_copy" value="https://fedibadges.sonyakun.com/followers?username=cocoa_vrc&host=misskey.io&software=misskey">
-    <button class="btn btn-outline-primary" data-clipboard-target="#followers_copy">Copy to clipboard</button>
-    <h2>Posts Counter</h2>
-    <img src="https://fedibadges.sonyakun.com/posts?username=cocoa_vrc&host=misskey.io&software=misskey" id="posts">
-    <br>
-    <input id="posts_copy" value="https://fedibadges.sonyakun.com/posts?username=cocoa_vrc&host=misskey.io&software=misskey">
-    <button class="btn btn-outline-primary"data-clipboard-target="#posts_copy">Copy to clipboard</button>
-    
+        <h2>Followers Counter</h2>
+        <img src="{{ request.base_url }}followers?username=cocoa_vrc&host=misskey.io&software=misskey" id="followers">
+        <br>
+        <input id="followers_copy" value="{{ request.base_url }}followers?username=cocoa_vrc&host=misskey.io&software=misskey">
+        <button class="btn btn-outline-primary" data-clipboard-target="#followers_copy">Copy to clipboard</button>
+        <h2>Posts Counter</h2>
+        <img src="{{ request.base_url }}posts?username=cocoa_vrc&host=misskey.io&software=misskey" id="posts">
+        <br>
+        <input id="posts_copy" value="{{ request.base_url }}posts?username=cocoa_vrc&host=misskey.io&software=misskey">
+        <button class="btn btn-outline-primary"data-clipboard-target="#posts_copy">Copy to clipboard</button>
+    </div>
+    <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href={{ github_url }} class="nav-link px-2 text-body-secondary">View on GitHub</a></li>
+        </ul>
+        <p class="text-center text-body-secondary">© 2024 sonyakun</p>
+    </footer>
     <script>new ClipboardJS('.btn');</script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>

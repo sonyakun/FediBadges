@@ -13,7 +13,7 @@ setuptools = "*"
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.12"
 
 [scripts]
 dev = "uvicorn src.app:app --reload"
